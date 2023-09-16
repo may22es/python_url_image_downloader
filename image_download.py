@@ -1,24 +1,34 @@
-import os
+from selenium import webdriver
 import time
-
-# 다운받을 이미지 url
-base_url = "https://dispatch.cdnser.be/cms-content/uploads/2020/04/09/a26f4b7b-9769-49dd-aed3-b7067fbc5a8c.jpg"
-
-# time check
-start = time.time()
-
-# curl 요청
-os.system("curl " + url + " > test.jpg")
-
-# 이미지 다운로드 시간 체크
-print(time.time() - start)
-
-# 저장 된 이미지 확인
-img = Image.open("test.jpg")
-
-
+ 
+driver = webdriver.Chrome("C:/Users/HJ/jupyter_code/scrapy_and_selenium/chromedriver_win32/chromedriver.exe")
+driver.get("https://search.daum.net/search?w=img&nil_search=btn&DA=NTB&enc=utf8&q=%ED%83%80%EC%B9%B4%ED%95%98%EC%8B%9C%20%EC%A5%AC%EB%A6%AC" )
+time.sleep(3)
+ 
+images = driver.find_elements_by_css_selector("#imgList > div > a > img")
+img_url = []
+ 
+for image in images :
+    url = image.get_attribute('src')
+    img_url.append(url)
+ 
+# print(img_url)
+ 
+driver.quit()
 
 
+
+# Base URL
 # https://wfwf288.com/cv?toon=13251&num=1
 # https://wfwf288.com/cv?toon=13251&num=229
+
+
+
+#<img src="https://i0.imgcloud16.com/13251/6c047eeb_2_0.jpg" alt="쌍망정은 부숴야 한다 2화_0">
+
+# Full Xpath
+#/html/body/section[1]/div[5]/img[1]
+#/html/body/section[1]/div[5]/img[1]
+#/html/body/section[1]/div[5]/img[1]
+#/html/body/section[1]/div[5]/img[2]
 
